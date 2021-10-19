@@ -1,6 +1,6 @@
 import React from "react";
 import { Component } from "react";
-import { Switch, Route } from "react-router";
+import { Switch, Route, Redirect } from "react-router-dom";
 import "./App.css";
 import Header from "./components/header/header.component";
 import Homepage from "./pages/homepage/homepage.component";
@@ -9,7 +9,6 @@ import SigninSignup from "./pages/signinSignupPage/signin-signup.component";
 import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
 import { connect } from "react-redux";
 import { setCurrentUser } from "./redux/user/user.actions";
-import { Redirect } from "react-router-dom/cjs/react-router-dom.min";
 
 class App extends Component {
   // constructor() {
