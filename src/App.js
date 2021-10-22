@@ -1,15 +1,18 @@
 import React from "react";
 import { Component } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
-import "./App.css";
-import Header from "./components/header/header.component";
+import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
+
 import Homepage from "./pages/homepage/homepage.component";
 import ShopPage from "./pages/shopPage/shoppage.component";
 import SigninSignup from "./pages/signinSignupPage/signin-signup.component";
+import CheckoutPage from "./pages/checkoutPage/checkout.component";
+
+import Header from "./components/header/header.component";
+import "./App.css";
 import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
-import { connect } from "react-redux";
 import { setCurrentUser } from "./redux/user/user.actions";
-import { createStructuredSelector } from "reselect";
 
 class App extends Component {
   // constructor() {
@@ -58,6 +61,7 @@ class App extends Component {
               this.props.currentUser ? <Redirect to="/" /> : <SigninSignup />
             }
           />
+          <Route exact path="/checkout" component={CheckoutPage} />
         </Switch>
       </div>
     );
