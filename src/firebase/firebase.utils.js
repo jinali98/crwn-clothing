@@ -124,7 +124,12 @@ export const convertCollectionsSnapshotToMap = (collections) => {
     };
   });
 
-  console.log(transformaedCollection);
+  //convert the shop data array to an object
+  return transformaedCollection.reduce((acc, collection) => {
+    acc[collection.title.toLowerCase()] = collection;
+
+    return acc;
+  }, {});
 };
 
 export const auth = firebase.auth();
