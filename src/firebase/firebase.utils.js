@@ -111,6 +111,22 @@ export const addCollectionAndDocuments = async (
   return await batch.commit();
 };
 
+//this is to conver the received reference object in to actual data we want
+export const convertCollectionsSnapshotToMap = (collections) => {
+  const transformaedCollection = collections.docs.map((doc) => {
+    const { title, items } = doc.data();
+
+    return {
+      routeName: encodeURI(title.toLowerCase()),
+      id: doc.id,
+      title,
+      items,
+    };
+  });
+
+  console.log(transformaedCollection);
+};
+
 export const auth = firebase.auth();
 export const firestore = firebase.firestore();
 
