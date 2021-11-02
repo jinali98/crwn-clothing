@@ -16,23 +16,27 @@ export const fetchCollectionsFailure = (errorMessage) => ({
   payload: errorMessage,
 });
 
+//this is an action returns a function
 export const fetchCollectionsStartAsync = () => {
   return (dispatch) => {
+    //inside this we can write our asyn code fetch or axios..etc
     const collectionRef = firestore.collection("collections");
     dispatch(fetchCollectionsStart());
 
     //useonSnapShot() method on reference in order to get latest and updated data. whenever the reference data updated it will send the latest data
 
-    collectionRef.onSnapshot(
-      async (snapshot) => {
+    collectionRef
+      .get()
+      .then((snapshot) => {
         //this is an object of shop data
         const collectionsMap = convertCollectionsSnapshotToMap(snapshot);
         dispatch(fetchCollectionsSuccess(collectionsMap));
         // this.props.updateCollection(collectionsMap);
         // this.setState({ loading: false });
         console.log(collectionsMap);
-      },
-      (error) => dispatch(fetchCollectionsFailure(`this is the error ${error}`))
-    );
+      })
+      .catch((error) =>
+        dispatch(fetchCollectionsFailure(`this is the error ${error.message}`))
+      );
   };
 };
