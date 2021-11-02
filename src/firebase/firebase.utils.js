@@ -76,11 +76,12 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
   // console.log("collectionRefsnapShot", collectionRefsnapShot.docs[0].data());
 
   if (!snapShot.exists) {
-    const { displayName, email } = userAuth;
+    const { displayName, email, uid } = userAuth;
     const createdAt = new Date();
 
     try {
       await userRef.set({
+        uid,
         displayName,
         email,
         createdAt,
@@ -94,6 +95,7 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
   return userRef;
 };
 
+//create  collection/document
 export const addCollectionAndDocuments = async (
   collectionKey,
   objectsToAdd
@@ -109,6 +111,47 @@ export const addCollectionAndDocuments = async (
   });
 
   return await batch.commit();
+};
+
+//my code
+export const addDocuments = async (uid, objectsToAdd) => {
+  const userRef = firestore.doc(`todo/${uid}`);
+  console.log("reference", userRef);
+  const snapShot = await userRef.get();
+
+  if (!snapShot.exists) {
+    // const { todo } = objectsToAdd;
+    const createdAt = new Date();
+
+    try {
+      await userRef.set({
+        uid,
+        createdAt,
+        todo: [],
+      });
+    } catch (err) {
+      console.log("error creating the todo", err.message);
+    }
+  }
+
+  return userRef;
+};
+export const updateDocuments = async (uid, objectsToAdd) => {
+  const userRef = firestore.doc(`todo/${uid}`);
+  console.log("reference", userRef);
+  const snapShot = await userRef.get();
+
+  if (snapShot.exists) {
+    try {
+      await userRef.set({
+        todo: objectsToAdd,
+      });
+    } catch (err) {
+      console.log("error creating the todo", err.message);
+    }
+  }
+
+  return userRef;
 };
 
 //this is to conver the received reference object in to actual data we want

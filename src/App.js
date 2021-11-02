@@ -13,8 +13,10 @@ import Header from "./components/header/header.component";
 import "./App.css";
 import {
   addCollectionAndDocuments,
+  addDocuments,
   auth,
   createUserProfileDocument,
+  updateDocuments,
 } from "./firebase/firebase.utils";
 import { setCurrentUser } from "./redux/user/user.actions";
 import { selectCurrentUser } from "./redux/user/user.selectors";
@@ -28,7 +30,20 @@ class App extends Component {
   //   super();
 
   //   this.state = {
-  //     currentUser: null,
+  //     todos: [
+  //       {
+  //         name: "todotype1",
+  //         todoItem: "hello",
+  //       },
+  //       {
+  //         name: "todotype2",
+  //         todoItem: "hello",
+  //       },
+  //       {
+  //         name: "todotype3",
+  //         todoItem: "hello",
+  //       },
+  //     ],
   //   };
   // }
 
@@ -46,6 +61,27 @@ class App extends Component {
             ...snapshot.data(),
           });
         });
+        // to create a new todo array and set the received todo array to the state
+        // const todoRef = await addDocuments(userAuth.uid);
+        // todoRef.onSnapshot((snapshot) => {
+        //   this.setState({
+        //     todos: {
+        //       ...snapshot.data(),
+        //     },
+        //   });
+        // });
+
+        // const todoGetRef = await updateDocuments(
+        //   userAuth.uid,
+        //   this.state.todos
+        // );
+        // todoGetRef.onSnapshot((snapshot) => {
+        //   this.setState({
+        //     todos: {
+        //       ...snapshot.data(),
+        //     },
+        //   });
+        // });
       } else {
         setCurrentUser(userAuth);
         // addCollectionAndDocuments(
@@ -61,6 +97,7 @@ class App extends Component {
   }
 
   render() {
+    // console.log(this.state.todos);
     return (
       <div>
         <Header />
