@@ -16,7 +16,7 @@ export const fetchCollectionsFailure = (errorMessage) => ({
   payload: errorMessage,
 });
 
-//this is an action returns a function
+//this is an action returns a function ==> redux-thunk
 export const fetchCollectionsStartAsync = () => {
   return (dispatch) => {
     //inside this we can write our asyn code fetch or axios..etc
