@@ -10,6 +10,7 @@ import createSagaMiddleware from "redux-saga";
 
 import rootReducer from "./root-reducer";
 import { fetchCollectionsStart } from "./shop/shop.saga";
+import rootSaga from "./root-saga";
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -19,7 +20,8 @@ const middlewares = [logger, sagaMiddleware];
 //creating the store and psss rootreducer and all the middlewares
 const store = createStore(rootReducer, applyMiddleware(...middlewares));
 
-sagaMiddleware.run(fetchCollectionsStart);
+//we can pass the root saga which has all the sagas
+sagaMiddleware.run(rootSaga);
 
 const persistor = persistStore(store);
 
