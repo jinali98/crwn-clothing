@@ -47,54 +47,55 @@ class App extends Component {
   //   };
   // }
 
-  unsubscribeFromAuth = null;
+  // unsubscribeFromAuth = null;
 
   componentDidMount() {
     const { setCurrentUser, collectionsArray } = this.props;
-    console.log(collectionsArray);
-    this.unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
-      if (userAuth) {
-        const userRef = await createUserProfileDocument(userAuth);
-        userRef.onSnapshot((snapshot) => {
-          setCurrentUser({
-            id: snapshot.id,
-            ...snapshot.data(),
-          });
-        });
-        // to create a new todo array and set the received todo array to the state
-        // const todoRef = await addDocuments(userAuth.uid);
-        // todoRef.onSnapshot((snapshot) => {
-        //   this.setState({
-        //     todos: {
-        //       ...snapshot.data(),
-        //     },
-        //   });
-        // });
 
-        // const todoGetRef = await updateDocuments(
-        //   userAuth.uid,
-        //   this.state.todos
-        // );
-        // todoGetRef.onSnapshot((snapshot) => {
-        //   this.setState({
-        //     todos: {
-        //       ...snapshot.data(),
-        //     },
-        //   });
-        // });
-      } else {
-        setCurrentUser(userAuth);
-        // addCollectionAndDocuments(
-        //   "collections",
-        //   collectionsArray.map(({ title, items }) => ({ title, items }))
-        // );
-      }
-    });
+    // console.log(collectionsArray);
+    // this.unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
+    //   if (userAuth) {
+    //     const userRef = await createUserProfileDocument(userAuth);
+    //     userRef.onSnapshot((snapshot) => {
+    //       setCurrentUser({
+    //         id: snapshot.id,
+    //         ...snapshot.data(),
+    //       });
+    //     });
+    // to create a new todo array and set the received todo array to the state
+    // const todoRef = await addDocuments(userAuth.uid);
+    // todoRef.onSnapshot((snapshot) => {
+    //   this.setState({
+    //     todos: {
+    //       ...snapshot.data(),
+    //     },
+    //   });
+    // });
+
+    // const todoGetRef = await updateDocuments(
+    //   userAuth.uid,
+    //   this.state.todos
+    // );
+    // todoGetRef.onSnapshot((snapshot) => {
+    //   this.setState({
+    //     todos: {
+    //       ...snapshot.data(),
+    //     },
+    //   });
+    // });
+    // } else {
+    //   setCurrentUser(userAuth);
+    // addCollectionAndDocuments(
+    //   "collections",
+    //   collectionsArray.map(({ title, items }) => ({ title, items }))
+    // );
+    // }
+    // });
   }
 
-  componentWillUnmount() {
-    this.unsubscribeFromAuth();
-  }
+  // componentWillUnmount() {
+  //   this.unsubscribeFromAuth();
+  // }
 
   render() {
     // console.log(this.state.todos);
