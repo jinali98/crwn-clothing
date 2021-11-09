@@ -5,7 +5,10 @@ import "./sign-in.styles.scss";
 
 import { signInWithGoogle } from "../../firebase/firebase.utils";
 import { auth } from "../../firebase/firebase.utils";
-import { googleSigninStarted } from "../../redux/user/user.actions";
+import {
+  googleSigninStarted,
+  emailSigninStarted,
+} from "../../redux/user/user.actions";
 import { connect } from "react-redux";
 
 class SignIn extends Component {
@@ -22,13 +25,13 @@ class SignIn extends Component {
     e.preventDefault();
 
     const { email, password } = this.state;
-
-    try {
-      await auth.signInWithEmailAndPassword(email, password);
-      this.setState({ email: "", password: "" });
-    } catch (err) {
-      console.log(err.message);
-    }
+    this.props.emailSigninStart(email, password);
+    // try {
+    //   await auth.signInWithEmailAndPassword(email, password);
+    //   this.setState({ email: "", password: "" });
+    // } catch (err) {
+    //   console.log(err.message);
+    // }
   };
 
   handleChange = (e) => {
@@ -77,6 +80,8 @@ class SignIn extends Component {
 
 const mapDispatchToProps = (dispatch) => ({
   googleSignInSatrt: () => dispatch(googleSigninStarted()),
+  emailSigninStart: (email, password) =>
+    dispatch(emailSigninStarted({ email, password })),
 });
 
 export default connect(null, mapDispatchToProps)(SignIn);
