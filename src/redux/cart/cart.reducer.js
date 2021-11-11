@@ -30,6 +30,11 @@ export const cartReducer = (state = INITIAL_STATE, action) => {
         ...state,
         cartItems: removeItemsFromCart(state.cartItems, action.payload),
       };
+    case cartActionReducer.CLEAR_CART:
+      return {
+        ...state,
+        cartItems: [],
+      };
     default:
       return state;
   }
