@@ -18,12 +18,13 @@ import {
   createUserProfileDocument,
   updateDocuments,
 } from "./firebase/firebase.utils";
-import { setCurrentUser } from "./redux/user/user.actions";
+
 import { selectCurrentUser } from "./redux/user/user.selectors";
 import {
   selectCollectionForPerview,
   selectCollections,
 } from "./redux/shop/shop.selector";
+import { checkUserSession } from "./redux/user/user.actions";
 
 class App extends Component {
   // constructor() {
@@ -50,8 +51,9 @@ class App extends Component {
   // unsubscribeFromAuth = null;
 
   componentDidMount() {
-    const { setCurrentUser, collectionsArray } = this.props;
+    const { setCurrentUser, collectionsArray, checkUserSession } = this.props;
 
+    checkUserSession();
     // console.log(collectionsArray);
     // this.unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
     //   if (userAuth) {
@@ -124,8 +126,11 @@ const mapStateToProps = createStructuredSelector({
   collectionsArray: selectCollectionForPerview,
 });
 
+// const mapDispatchToProps = (dispatch) => ({
+//   setCurrentUser: (user) => dispatch(setCurrentUser(user)),
+// });
 const mapDispatchToProps = (dispatch) => ({
-  setCurrentUser: (user) => dispatch(setCurrentUser(user)),
+  checkUserSession: () => dispatch(checkUserSession),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
